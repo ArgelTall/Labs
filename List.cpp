@@ -11,14 +11,14 @@ public:
 	List();
 	~List();
 
-	void push_back(T data); //добавление в конец
-	void push_front(T data); //добавление в начало
-	void insert(T value, int index); //добавить элемент под индексом
-	void pop_front(); //удаление первого элемента
-	void pop_back(); //удаление последнего элемента
-	void remove(int index); //удаление конкретного элемента
-	void clear(); //удаление всего вписка
-	void print(int index); //вывод элементов
+	void push_back(T data); //Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Гў ГЄГ®Г­ГҐГ¶
+	void push_front(T data); //Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Гў Г­Г Г·Г Г«Г®
+	void insert(T value, int index); //Г¤Г®ГЎГ ГўГЁГІГј ГЅГ«ГҐГ¬ГҐГ­ГІ ГЇГ®Г¤ ГЁГ­Г¤ГҐГЄГ±Г®Г¬
+	void pop_front(); //ГіГ¤Г Г«ГҐГ­ГЁГҐ ГЇГҐГ°ГўГ®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
+	void pop_back(); //ГіГ¤Г Г«ГҐГ­ГЁГҐ ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
+	void remove(int index); //ГіГ¤Г Г«ГҐГ­ГЁГҐ ГЄГ®Г­ГЄГ°ГҐГІГ­Г®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
+	void clear(); //ГіГ¤Г Г«ГҐГ­ГЁГҐ ГўГ±ГҐГЈГ® ГўГЇГЁГ±ГЄГ 
+	void print(int index); //ГўГ»ГўГ®Г¤ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў
 
 	int Getsize() { return size; }
 
