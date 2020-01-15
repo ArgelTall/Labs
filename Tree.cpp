@@ -18,14 +18,16 @@ class List
 {
 private:
 	Tree* head;
-	void print_all(Tree* current)
+	void print_all(Tree* current, int level)
 	{
-		if (current != nullptr)
+		if (current)
 		{
+			print_all(current->leftElem, level + 1);
+			for (int i = 0; i < level; i++) cout << "   ";
 			cout << current->key << endl;
-			print_all(current->leftElem);
-			print_all(current->rightElem);
+			print_all(current->rightElem, level + 1);
 		}
+
 	}
 public:
 	List()
@@ -416,7 +418,7 @@ public:
 	void print_all()
 	{
 		Tree* current = head;
-		print_all(current);
+		print_all(current, 0);
 	}
 };
 
