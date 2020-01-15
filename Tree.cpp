@@ -20,7 +20,7 @@ private:
 	Tree* head;
 	void print_all(Tree* current, int level)
 	{
-		if (current)
+		if (current != nullptr)
 		{
 			print_all(current->leftElem, level + 1);
 			for (int i = 0; i < level; i++) cout << "   ";
