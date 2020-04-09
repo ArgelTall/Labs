@@ -1,0 +1,76 @@
+#pragma once
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<filesystem>
+
+using namespace std;
+
+class scan
+{
+private:
+	void doublePoints(string& s, int& i)
+	{
+		while (s[i] != ':' && i < s.length())
+			i++;
+	}
+
+	void findLogs(string path, const string& object, string name)
+	{
+		fstream f;
+		f.open(path, ios::in);
+		while (!f.eof())
+		{
+			string boof, deviceName, data;
+			getline(f, boof);
+			if (boof.length() == 0 || boof.find("garbage") != -1)
+				continue;
+			int iter = 0;
+			doublePoints(boof, iter);
+			data += boof.substr(0, iter);
+			boof.replace(0, iter + 1, "");
+			iter = 0;
+			doublePoints(boof, iter);
+			deviceName += boof.substr(0, iter);
+			if (deviceName != object)
+				continue;
+			boof.replace(0, iter + 1, "");
+			cout << "DATA: " << name.substr(37, name.length() - 42) << " MEASUREMENT TIME: " << data << " VALUE: " << boof << endl;
+		}
+		f.close();
+	}
+public:
+	void findFile(string directory, string object)
+	{
+		try
+		{
+			for (auto& pointer : filesystem::directory_iterator(directory))
+			{
+				auto p = pointer.path().string();
+				findLogs(pointer.path().string(), object, p);
+			}
+		}
+		catch (exception e)
+		{
+			cout << "Invalid name " << endl;
+		}
+	}
+};
+
+
+int main()
+{
+	string s, device;
+	scan in;
+
+	while (1)
+	{
+		cout << "Enter device name: ";
+		cin >> device;
+		cout << endl;
+
+		in.findFile("D:/lesson1/lesson_1-master/logs", device);
+	}
+
+	return 0;
+}
