@@ -68,6 +68,12 @@ int main()
 		cout << "Enter device name: ";
 		cin >> device;
 		cout << endl;
+		
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(256, '\n');
+		}
 
 		in.findFile("D:/lesson1/lesson_1-master/logs", device);
 	}
