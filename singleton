@@ -1,0 +1,103 @@
+#include <iostream>
+#include<string>
+#include<vector>
+#include<fstream>
+
+using namespace std;
+
+class Conf
+{
+private:
+	string LOGIN, PASS;
+	int IP[4];
+	static Conf* Form;
+	bool parse(string boof)
+	{
+		try
+		{
+			this->IP[0] = stoi(boof.substr(0, boof.find_first_of('.')));
+			boof = boof.substr(boof.find_first_of('.') + 1, boof.length());
+			this->IP[1] = stoi(boof.substr(0, boof.find_first_of('.')));
+			boof = boof.substr(boof.find_first_of('.') + 1, boof.length());
+			this->IP[2] = stoi(boof.substr(0, boof.find_first_of('.')));
+			boof = boof.substr(boof.find_first_of('.') + 1, boof.length());
+			this->IP[3] = stoi(boof);
+		}
+		catch (exception e)
+		{
+			cout << "Error\n";
+			return false;
+		}
+		return true;
+	}
+	void print(ostream& out)
+	{
+		out << LOGIN << '\n' << PASS << '\n' 
+			<< IP[0] << '.' << IP[1] << '.' << IP[2] << '.' << IP[3] << '\n';
+	}
+public:
+	static Conf* templ()
+	{
+		if (Form == nullptr)
+		{
+			Form = new Conf();
+			Form->LOGIN = "";
+			Form->PASS = "";
+			for (int i = 0; i < 4; i++)
+				Form->IP[i] = 0;
+		}
+		return Form;
+	}
+	void read()
+	{
+		string boof;
+		fstream in("Conf.txt", ios::in);
+		if (in.eof())
+		{
+			cout << "Error: file is empty\n";
+			return;
+		}
+		getline(in, boof);
+		Form->LOGIN = boof;
+		getline(in, boof);
+		Form->PASS = boof;
+		getline(in, boof);
+		if (!parse(boof))
+			return;
+		in.close();
+		print(cout);
+	}
+	void update()
+	{
+		bool flag = false;
+		while (!flag)
+		{
+			string input;
+			cout << "Input your login: ";
+			cin >> input;
+			Form->LOGIN = input;
+			cout << "Input your password: ";
+			cin >> input;
+			Form->PASS = input;
+			cout << "Input your IP: ";
+			cin >> input;
+			flag = parse(input);
+			if (!flag)
+				continue;
+			cout << endl;
+		}
+		fstream out("Conf.txt", ios::out);
+		print(out);
+		out.close();
+	}
+};
+
+Conf* Conf::Form = nullptr;
+
+int main()
+{
+	auto a = Conf::templ();
+	a->update();
+	a->read();
+	return 0;
+}
